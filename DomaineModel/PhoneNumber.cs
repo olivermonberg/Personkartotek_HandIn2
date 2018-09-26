@@ -8,6 +8,7 @@ namespace DomaineModel
 {
     public class PhoneNumber
     {
+        public virtual long PhoneNumberID { get; set; }
         public virtual string Num { get; set; }
     }
 }

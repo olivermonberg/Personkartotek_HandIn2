@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DomaineModel.Address">
+    <Position X="6.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAACAAAAIAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Address.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DomaineModel.City">
+    <Position X="6.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAABIAAAAAAAIAAAAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>City.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Addresses" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="DomaineModel.Email">
+    <Position X="0.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Email.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DomaineModel.Note">
+    <Position X="3.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Note.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DomaineModel.Person">
+    <Position X="2.75" Y="3" Width="2" />
+    <AssociationLine Name="AlternativeAddresses" Type="DomaineModel.AlternativeAddress">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="0.363" Y="0.413" Height="0.182" Width="1.473" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>QAAgAAAAADAAAAAAAAAAQAQAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Person.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="PrimaryAddress" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Notes" />
+      <Property Name="AlternativeAddresses" />
+      <Property Name="Emails" />
+      <Property Name="PhoneNumbers" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="DomaineModel.PhoneCarrier">
+    <Position X="6.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAACAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhoneCarrier.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="PhoneNumbers" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="DomaineModel.PhoneNumber">
+    <Position X="2.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PhoneNumber.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DomaineModel.AlternativeAddress">
+    <Position X="4.75" Y="4.75" Width="1.75" />
+    <AssociationLine Name="Addresses" Type="DomaineModel.Address" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6.5" Y="5.312" />
+        <Point X="7.562" Y="5.312" />
+        <Point X="7.562" Y="4.488" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.441" Y="0.501" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AlternativeAddress.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Addresses" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -8,6 +8,7 @@ namespace DomaineModel
 {
     public class Email
     {
+        public virtual long EmailID { get; set; }
         public virtual string EmailAddress { get; set; }
     }
 }

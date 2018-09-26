@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace DomaineModel
 {
-    class PhoneCarrier
+    public class PhoneCarrier
     {
+        public virtual long PhoneCarrierID { get; set; }
+        public virtual string CompanyName { get; set; }
+
+        public virtual ICollection<PhoneNumber> PhoneNumbers { get; set; }
     }
 }

@@ -8,6 +8,7 @@ namespace DomaineModel
 {
     public class Note
     {
+        public virtual long NoteID { get; set; }
         public virtual string NoteText { get; set; }
     }
 }
