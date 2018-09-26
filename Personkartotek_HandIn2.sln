@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2016
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Personkartotek_HandIn2", "Personkartotek_HandIn2\Personkartotek_HandIn2.sqlproj", "{09569709-619C-49F2-8FC0-356CD9089C89}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomaineModel", "DomaineModel\DomaineModel.csproj", "{80C5C984-2010-4E9F-BA7D-60739DF8B8D6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{09569709-619C-49F2-8FC0-356CD9089C89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09569709-619C-49F2-8FC0-356CD9089C89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09569709-619C-49F2-8FC0-356CD9089C89}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{09569709-619C-49F2-8FC0-356CD9089C89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09569709-619C-49F2-8FC0-356CD9089C89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09569709-619C-49F2-8FC0-356CD9089C89}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{80C5C984-2010-4E9F-BA7D-60739DF8B8D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80C5C984-2010-4E9F-BA7D-60739DF8B8D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80C5C984-2010-4E9F-BA7D-60739DF8B8D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80C5C984-2010-4E9F-BA7D-60739DF8B8D6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E028B4E4-5490-497E-B28C-F1390CCEBCBA}
+	EndGlobalSection
+EndGlobal
