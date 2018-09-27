@@ -8,6 +8,10 @@ namespace DomaineModel
 {
     public class Email
     {
+        public Email(string _emailAddress)
+        {
+            EmailAddress = _emailAddress;
+        }
         public virtual long EmailID { get; set; }
         public virtual string EmailAddress { get; set; }
     }

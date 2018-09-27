@@ -34,10 +34,31 @@
 -- AddressID       :  (references Address.AddressID)
 -- AlternativeAddressID :  
 --
+--
+-- Create Table    : 'AlternativeAddress'   
+-- PersonID        :  (references Person.PersonID)
+-- AddressID       :  (references Address.AddressID)
+-- AlternativeAddressID :  
+--
+--
+-- Create Table    : 'AlternativeAddress'   
+-- PersonID        :  (references Person.PersonID)
+-- AddressID       :  (references Address.AddressID)
+-- AlternativeAddressID :  
+-- Type            :  
+--
+--
+-- Create Table    : 'AlternativeAddress'   
+-- PersonID        :  (references Person.PersonID)
+-- AddressID       :  (references Address.AddressID)
+-- AlternativeAddressID :  
+-- Type            :  
+--
 CREATE TABLE AlternativeAddress (
     PersonID       BIGINT NOT NULL,
     AddressID      BIGINT NOT NULL,
-    AlternativeAddressID CHAR(1) NOT NULL,
+    AlternativeAddressID BIGINT IDENTITY(1,1) NOT NULL,
+    Type           NVARCHAR(MAX) NOT NULL,
 CONSTRAINT pk_AlternativeAddress PRIMARY KEY CLUSTERED (PersonID,AddressID,AlternativeAddressID),
 CONSTRAINT fk_AlternativeAddress FOREIGN KEY (PersonID)
     REFERENCES Person (PersonID)

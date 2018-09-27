@@ -3,9 +3,12 @@
   <Class Name="DomaineModel.Address">
     <Position X="6.75" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QAAAAAAAAAAAAACAAAAIAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>QAAAAAABAAAAAACIAAAIAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Address.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="City" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="DomaineModel.City">
     <Position X="6.75" Y="0.5" Width="1.5" />
@@ -35,25 +38,25 @@
     <Position X="2.75" Y="3" Width="2" />
     <AssociationLine Name="AlternativeAddresses" Type="DomaineModel.AlternativeAddress">
       <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
-        <Position X="0.363" Y="0.413" Height="0.182" Width="1.473" />
+        <Position X="0.132" Y="0.06" Height="0.182" Width="1.473" />
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>QAAgAAAAADAAAAAAAAAAQAQAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <HashCode>QAAgAEAAADAAAACAAAAAQAAAAAAAAAABAAAAAAAACAg=</HashCode>
       <FileName>Person.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="PrimaryAddress" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
-      <Property Name="Notes" />
       <Property Name="AlternativeAddresses" />
+      <Property Name="Notes" />
       <Property Name="Emails" />
       <Property Name="PhoneNumbers" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="DomaineModel.PhoneCarrier">
-    <Position X="6.75" Y="6" Width="1.5" />
+    <Position X="7.5" Y="6.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAQAAAAAACAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>PhoneCarrier.cs</FileName>
@@ -63,26 +66,31 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="DomaineModel.PhoneNumber">
-    <Position X="2.5" Y="6" Width="1.5" />
+    <Position X="2.5" Y="6.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>IAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>IAAAAgAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
       <FileName>PhoneNumber.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Carrier" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="DomaineModel.AlternativeAddress">
-    <Position X="4.75" Y="4.75" Width="1.75" />
+    <Position X="5" Y="5.5" Width="1.75" />
     <AssociationLine Name="Addresses" Type="DomaineModel.Address" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="6.5" Y="5.312" />
-        <Point X="7.562" Y="5.312" />
-        <Point X="7.562" Y="4.488" />
+        <Point X="6.75" Y="6.488" />
+        <Point X="7.25" Y="6.488" />
+        <Point X="7.25" Y="6" />
+        <Point X="7.562" Y="6" />
+        <Point X="7.562" Y="5.132" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="-0.441" Y="0.501" />
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AABAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AABAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAQAAAAEAAAA=</HashCode>
       <FileName>AlternativeAddress.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>

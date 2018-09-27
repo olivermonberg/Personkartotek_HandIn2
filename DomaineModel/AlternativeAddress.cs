@@ -9,8 +9,18 @@ namespace DomaineModel
 {
     public class AlternativeAddress
     {
-        public virtual long AlternativeAddressID { get; set; }
+        public AlternativeAddress(Person _person, Address _address, string _type)
+        {
+            Type = _type;
+            Addresses.Add(_address);
+            Persons.Add(_person);
 
+            Addresses = new List<Address>();
+            Persons = new List<Person>();
+        }
+        public virtual long AlternativeAddressID { get; set; }
+        public virtual string Type { get; set; }
         public virtual ICollection<Address> Addresses { get; set; }
+        public virtual ICollection<Person> Persons { get; set; }
     }
 }
