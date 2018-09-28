@@ -20,6 +20,6 @@ namespace DomaineModel
         public virtual long CityID { get; set; }
         public virtual string StreetName { get; set; }
         public virtual string StreetNumber { get; set; }
-        public virtual City City { get; set; }
+        //public virtual City City { get; set; }
     }
 }

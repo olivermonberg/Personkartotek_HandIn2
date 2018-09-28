@@ -17,7 +17,7 @@ namespace Infrastructure
         /// </summary>
         public PKDBUtil()
         {
-            currentPerson = new Person("", "", "", "", null);
+            currentPerson = new Person("", "", "", "", 0);
         }
 
         private SqlConnection OpenConnection
@@ -48,7 +48,7 @@ namespace Infrastructure
             }
         }
 
-        public void AddAddressDB(ref Address c)
+        public void AddAddressDB(ref Address a)
         {
             string insertStringParam = @"INSERT INTO [Address] (StreetName, StreetNumber, CityID)
                                             OUTPUT INSERTED.AddressID
@@ -57,19 +57,19 @@ namespace Infrastructure
             using (SqlCommand cmd = new SqlCommand(insertStringParam, OpenConnection))
             {
                 //cmd.Parameters.AddWithValue("@PersonID", 1);
-                cmd.Parameters.AddWithValue("@StreetName", c.StreetName);
-                cmd.Parameters.AddWithValue("@StreetNumber", c.StreetNumber);
-                cmd.Parameters.AddWithValue("@CityID", c.CityID);
-                c.AddressID = (long)cmd.ExecuteScalar();
+                cmd.Parameters.AddWithValue("@StreetName", a.StreetName);
+                cmd.Parameters.AddWithValue("@StreetNumber", a.StreetNumber);
+                cmd.Parameters.AddWithValue("@CityID", a.CityID);
+                a.AddressID = (long)cmd.ExecuteScalar();
                 //p.PrimaryAddress = (Address)cmd.ExecuteScalar();
             }
         }
 
         public void AddPersonDB(ref Person p)
         {
-            string insertStringParam = @"INSERT INTO [Person] (FirstName, LastName, Nationality, Gender, PrimaryAddress)
+            string insertStringParam = @"INSERT INTO [Person] (FirstName, LastName, Nationality, Gender, AddressID)
                                             OUTPUT INSERTED.PersonID
-                                            VALUES (@FirstName, @LastName, @Nationality, @Gender, @PrimaryAddress)";
+                                            VALUES (@FirstName, @LastName, @Nationality, @Gender, @AddressID)";
 
             using (SqlCommand cmd = new SqlCommand(insertStringParam, OpenConnection))
             {
@@ -78,8 +78,8 @@ namespace Infrastructure
                 cmd.Parameters.AddWithValue("@LastName", p.LastName);
                 cmd.Parameters.AddWithValue("@Nationality", p.Nationality);
                 cmd.Parameters.AddWithValue("@Gender", p.Gender);
-                cmd.Parameters.AddWithValue("@PrimaryAddress", null);
-               // p.PersonID = (long) cmd.ExecuteScalar();
+                cmd.Parameters.AddWithValue("@AddressID", p.AddressID);
+                p.PersonID = (long)cmd.ExecuteScalar();
                 //p.PrimaryAddress = (Address)cmd.ExecuteScalar();
             }
         }
@@ -89,7 +89,7 @@ namespace Infrastructure
             string updateString =
                 @"UPDATE Person
                   SET FirstName = @FirstName, LastName = @LastName,
-                        Nationality = @Nationality, Gender = @Gender, PrimaryAddress = @PrimaryAddress
+                        Nationality = @Nationality, Gender = @Gender, AddressID = @AddressID
                   WHERE PersonID = @PersonID";
 
             using (SqlCommand cmd = new SqlCommand(updateString, OpenConnection))
@@ -98,9 +98,34 @@ namespace Infrastructure
                 cmd.Parameters.AddWithValue("@LastName", p.LastName);
                 cmd.Parameters.AddWithValue("@Nationality", p.Nationality);
                 cmd.Parameters.AddWithValue("@Gender", p.Gender);
-                cmd.Parameters.AddWithValue("@PrimaryAddress", p.PrimaryAddress);
+                cmd.Parameters.AddWithValue("@AddressID", p.AddressID);
 
                 var id = (long)cmd.ExecuteNonQuery();
+            }
+        }
+
+        public long GetCityIDByName(string CityName)
+        {
+            string sqlcmd = @"SELECT TOP 1 * FROM City WHERE (CityName = @CName)";
+            long id = 0;
+
+            using (var cmd = new SqlCommand(sqlcmd, OpenConnection))
+            {
+                cmd.Parameters.AddWithValue("@CName", CityName);
+                SqlDataReader rdr = null;
+                rdr = cmd.ExecuteReader();
+
+                if (rdr.Read())
+                {
+                    Console.WriteLine("CityID found.");
+                    id = (long)rdr["CityID"];
+                    return id;
+                }
+                else
+                {
+                    Console.WriteLine("CityID not found.");
+                    return 0;
+                }
             }
         }
 
@@ -117,12 +142,12 @@ namespace Infrastructure
                 if (rdr.Read())
                 {
                     Console.WriteLine("Person found.");
-                    currentPerson.PersonID = (int)rdr["PersonID"];
+                    currentPerson.PersonID = (long)rdr["PersonID"];
                     currentPerson.FirstName = (string)rdr["FirstName"];
-                    currentPerson.FirstName = (string)rdr["LastName"];
-                    currentPerson.FirstName = (string)rdr["Nationality"];
-                    currentPerson.FirstName = (string)rdr["Gender"];
-                    currentPerson.FirstName = (string)rdr["Address"];
+                    currentPerson.LastName = (string)rdr["LastName"];
+                    currentPerson.Nationality = (string)rdr["Nationality"];
+                    currentPerson.Gender = (string)rdr["Gender"];
+                    currentPerson.AddressID = (long)rdr["AddressID"];
                     p = currentPerson;
                 }
             }
