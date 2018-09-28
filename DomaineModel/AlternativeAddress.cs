@@ -19,6 +19,8 @@ namespace DomaineModel
             Persons = new List<Person>();
         }
         public virtual long AlternativeAddressID { get; set; }
+        public virtual long PersonID { get; set; }
+        public virtual long AddressID { get; set; }
         public virtual string Type { get; set; }
         public virtual ICollection<Address> Addresses { get; set; }
         public virtual ICollection<Person> Persons { get; set; }

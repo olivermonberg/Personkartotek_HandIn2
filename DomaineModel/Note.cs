@@ -13,6 +13,7 @@ namespace DomaineModel
             NoteText = _noteText;
         }
         public virtual long NoteID { get; set; }
+        public virtual long PersonID { get; set; }
         public virtual string NoteText { get; set; }
     }
 }

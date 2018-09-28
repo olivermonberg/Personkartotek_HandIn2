@@ -27,7 +27,7 @@
   <Class Name="DomaineModel.Note">
     <Position X="3.25" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>QAAAAAAAAAAAAAAAAAEAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Note.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -50,7 +50,7 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="DomaineModel.PhoneCarrier">
-    <Position X="7.5" Y="6.25" Width="1.5" />
+    <Position X="7.5" Y="6.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAQAAAAAACAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>PhoneCarrier.cs</FileName>
@@ -60,7 +60,7 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="DomaineModel.PhoneNumber">
-    <Position X="2.5" Y="6.25" Width="1.5" />
+    <Position X="2.5" Y="6.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>IAAAAgAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
       <FileName>PhoneNumber.cs</FileName>
@@ -73,10 +73,8 @@
     <Position X="5" Y="5.5" Width="1.75" />
     <AssociationLine Name="Addresses" Type="DomaineModel.Address" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="6.75" Y="6.488" />
-        <Point X="7.25" Y="6.488" />
-        <Point X="7.25" Y="6" />
-        <Point X="7.562" Y="6" />
+        <Point X="6.75" Y="6.684" />
+        <Point X="7.562" Y="6.684" />
         <Point X="7.562" Y="5.132" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
@@ -84,7 +82,7 @@
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AABAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAQAAAAEAAAA=</HashCode>
+      <HashCode>QABAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAQAAAAEAAAA=</HashCode>
       <FileName>AlternativeAddress.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
