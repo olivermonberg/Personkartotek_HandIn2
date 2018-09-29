@@ -8,6 +8,8 @@ namespace DomaineModel
 {
     public class Person
     {
+        //public Person(string _FirstName, string _LastName, string _Nationality,
+        //string _Gender, Address _Address)
         public Person(string _FirstName, string _LastName, string _Nationality,
             string _Gender, long _AddressID)
         {
@@ -17,7 +19,7 @@ namespace DomaineModel
             Gender = _Gender;
             AddressID = _AddressID;
 
-            //AddressID = GetAddressIDByStreetNameAndNumber(); //Create if not found
+            //AddressID = GetAddressIDByStreetNameAndNumber(_Address.StreetName, _Address.StreetNumber); //Create if not found
             //PrimaryAddress = GetAddressObjectByAddressID(AddressID);
             //PrimaryAddress.Addresses.Add(this);
 

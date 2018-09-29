@@ -15,12 +15,12 @@ namespace DomaineModel
             Address = _address;
             Person = _person;
 
-            //PersonID = GetPersonIDByFirstAndLastNameAndCountry();
+            //PersonID = GetPersonIDByFirstAndLastNameAndCountry(_person.FirstName, _person.LastName, _person.Country);
             //Person = GetPersonObjectByPersonID(PersonID);
             //Person.AlternativeAddress.Add(this);
             //Persons.Add(Person);
 
-            //AddressID = GetAddressIDByStreetNameAndNumber();
+            //AddressID = GetAddressIDByStreetNameAndNumber(_address.StreetName, _address.StreetNumber); //evt. City
             //Address = GetAddressObjectByAddressID(AddressID);
             //Address.Persons.Add(Person);
 

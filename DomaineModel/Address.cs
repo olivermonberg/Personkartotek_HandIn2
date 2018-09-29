@@ -8,6 +8,7 @@ namespace DomaineModel
 {
     public class Address
     {
+        //public Address(string _StreetName, string _StreetNumber, City _City)
         public Address(string _StreetName, string _StreetNumber, long City)
         {
             StreetName = _StreetName;
@@ -16,7 +17,7 @@ namespace DomaineModel
 
             Persons = new List<Person>();
             
-            //CityID = GetCityIDByName();
+            //CityID = GetCityIDByCityName(_City.CityName);
             //City = GetCityObjectByID(); //reference
             //City.Addresses.Add(this);
         }
