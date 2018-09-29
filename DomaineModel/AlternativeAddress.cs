@@ -12,17 +12,28 @@ namespace DomaineModel
         public AlternativeAddress(Person _person, Address _address, string _type)
         {
             Type = _type;
-            Addresses.Add(_address);
-            Persons.Add(_person);
+            Address = _address;
+            Person = _person;
 
-            Addresses = new List<Address>();
-            Persons = new List<Person>();
+            //PersonID = GetPersonIDByFirstAndLastNameAndCountry();
+            //Person = GetPersonObjectByPersonID(PersonID);
+            //Person.AlternativeAddress.Add(this);
+            //Persons.Add(Person);
+
+            //AddressID = GetAddressIDByStreetNameAndNumber();
+            //Address = GetAddressObjectByAddressID(AddressID);
+            //Address.Persons.Add(Person);
+
+            //Addresses = new List<Address>();
+            //Persons = new List<Person>();
         }
         public virtual long AlternativeAddressID { get; set; }
         public virtual long PersonID { get; set; }
         public virtual long AddressID { get; set; }
         public virtual string Type { get; set; }
-        public virtual ICollection<Address> Addresses { get; set; }
-        public virtual ICollection<Person> Persons { get; set; }
+        //public virtual ICollection<Address> Addresses { get; set; }
+        //public virtual ICollection<Person> Persons { get; set; }
+        public virtual Address Address { get; set; }
+        public virtual Person Person { get; set; }
     }
 }

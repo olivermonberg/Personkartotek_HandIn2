@@ -15,8 +15,11 @@ namespace DomaineModel
             LastName = _LastName;
             Nationality = _Nationality;
             Gender = _Gender;
-            //PrimaryAddress = _PrimaryAddress;
             AddressID = _AddressID;
+
+            //AddressID = GetAddressIDByStreetNameAndNumber(); //Create if not found
+            //PrimaryAddress = GetAddressObjectByAddressID(AddressID);
+            //PrimaryAddress.Addresses.Add(this);
 
             AlternativeAddresses = new List<AlternativeAddress>();
             Notes = new List<Note>();
@@ -29,7 +32,7 @@ namespace DomaineModel
         public virtual string LastName { get; set; }
         public virtual string Nationality { get; set; }
         public virtual string Gender { get; set; }
-        //public virtual Address PrimaryAddress { get; set; }
+        public virtual Address PrimaryAddress { get; set; }
         public virtual long AddressID { get; set; }
         public virtual ICollection<AlternativeAddress> AlternativeAddresses { get; set; }
         public virtual ICollection<Note> Notes { get; set; }

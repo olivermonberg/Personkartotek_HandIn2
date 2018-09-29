@@ -11,6 +11,11 @@ namespace DomaineModel
         public PhoneNumber(string _Num, PhoneCarrier _Carrier)
         {
             Num = _Num;
+
+            //PhoneCarrierID = GetPhoneCarrierIDByCompanyName();
+            //Carrier = GetCarrierObjectByPhoneCarrierID();
+            //Carrier.PhoneNumbers.Add(this);
+
             Carrier = _Carrier;
             Carrier.PhoneNumbers.Add(this);
         }
