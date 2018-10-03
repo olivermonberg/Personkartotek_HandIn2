@@ -4,7 +4,7 @@
     <Position X="7" Y="3.75" Width="1.5" />
     <AssociationLine Name="City" Type="DomaineModel.City">
       <MemberNameLabel ManuallyPlaced="true">
-        <Position X="-0.254" Y="0.236" />
+        <Position X="0.236" Y="-0.254" />
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
@@ -19,7 +19,15 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="DomaineModel.City">
-    <Position X="6.75" Y="1" Width="1.5" />
+    <Position X="5.75" Y="1" Width="1.5" />
+    <AssociationLine Name="Addresses" Type="DomaineModel.Address" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6.629" Y="3.132" />
+        <Point X="6.629" Y="3.375" />
+        <Point X="7.312" Y="3.375" />
+        <Point X="7.312" Y="3.75" />
+      </Path>
+    </AssociationLine>
     <TypeIdentifier>
       <HashCode>AABAAAABIAAAAAAAIAAAAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>City.cs</FileName>
@@ -48,6 +56,12 @@
       <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
         <Position X="0.132" Y="0.06" Height="0.182" Width="1.473" />
       </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="PhoneNumbers" Type="DomaineModel.PhoneNumber" FixedFromPoint="true">
+      <Path>
+        <Point X="3.375" Y="6.017" />
+        <Point X="3.375" Y="7.75" />
+      </Path>
     </AssociationLine>
     <TypeIdentifier>
       <HashCode>QAAgAEAAADAAAACAAAAAQAAAAAAAAAABAAAAAAAACAg=</HashCode>
@@ -82,21 +96,10 @@
   </Class>
   <Class Name="DomaineModel.AlternativeAddress">
     <Position X="5.25" Y="6" Width="1.75" />
-    <AssociationLine Name="Person" Type="DomaineModel.Person" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="5.641" Y="6" />
-        <Point X="5.641" Y="5.375" />
-        <Point X="5" Y="5.375" />
-      </Path>
-    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>QIAAAAAAAAAAAAAAIAAAAAAAAAAAAAACAQAAAAAAAAA=</HashCode>
+      <HashCode>QAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
       <FileName>AlternativeAddress.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Address" />
-      <Property Name="Person" />
-    </ShowAsAssociation>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

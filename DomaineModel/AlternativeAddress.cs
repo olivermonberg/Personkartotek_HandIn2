@@ -12,8 +12,8 @@ namespace DomaineModel
         public AlternativeAddress(Person _person, Address _address, string _type)
         {
             Type = _type;
-            Address = _address;
-            Person = _person;
+            //Address = _address;
+            //Person = _person;
 
             //PersonID = GetPersonIDByFirstAndLastNameAndCountry(_person.FirstName, _person.LastName, _person.Country);
             //Person = GetPersonObjectByPersonID(PersonID);
@@ -33,7 +33,7 @@ namespace DomaineModel
         public virtual string Type { get; set; }
         //public virtual ICollection<Address> Addresses { get; set; }
         //public virtual ICollection<Person> Persons { get; set; }
-        public virtual Address Address { get; set; }
-        public virtual Person Person { get; set; }
+        //public virtual Address Address { get; set; }
+        //public virtual Person Person { get; set; }
     }
 }
