@@ -23,7 +23,6 @@ namespace Infrastructure
         {
             get
             {
-                //var con = new SqlConnection(@"Data Source=(localdb)\ProjectsV13;Initial Catalog=CraftManDB;Integrated Security=True");
                 var con = new SqlConnection(@"Data Source=10.83.16.131;Initial Catalog=E18I4DABau554208;User ID=E18I4DABau554208;Password=E18I4DABau554208;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
                 con.Open();
                 return con;
@@ -32,18 +31,45 @@ namespace Infrastructure
 
         public void AddCityDB(ref City c)
         {
-            string insertStringParam = @"INSERT INTO [City] (PostalCode, Country, CityName)
-                                            OUTPUT INSERTED.CityID
-                                            VALUES (@PostalCode, @Country, @CityName)";
+            string insertStringParam1 = "SELECT COUNT(*) FROM[City] WHERE (CityName = @CityName and PostalCode = @PostalCode and Country = @Country)";
 
-            using (SqlCommand cmd = new SqlCommand(insertStringParam, OpenConnection))
+            SqlCommand check_if_city_exists = new SqlCommand(insertStringParam1, OpenConnection);
+            check_if_city_exists.Parameters.AddWithValue("@CityName", c.CityName);
+            check_if_city_exists.Parameters.AddWithValue("@PostalCode", c.PostalCode);
+            check_if_city_exists.Parameters.AddWithValue("@Country", c.Country);
+
+            int UserExist = (int)check_if_city_exists.ExecuteScalar();
+
+            if (UserExist > 0)
             {
-                //cmd.Parameters.AddWithValue("@PersonID", 1);
-                cmd.Parameters.AddWithValue("@PostalCode", c.PostalCode);
-                cmd.Parameters.AddWithValue("@Country", c.Country);
-                cmd.Parameters.AddWithValue("@CityName", c.CityName);
-                c.CityID = (long) cmd.ExecuteScalar();
-                //p.PrimaryAddress = (Address)cmd.ExecuteScalar();
+                //Username exist
+            }
+            else
+            {
+                //Username doesn't exist.
+                string insertStringParam = @"INSERT INTO [City] (PostalCode, Country, CityName)
+                                                OUTPUT INSERTED.CityID
+                                                VALUES (@PostalCode, @Country, @CityName)";
+
+                using (SqlCommand cmd = new SqlCommand(insertStringParam, OpenConnection))
+                {
+                    cmd.Parameters.AddWithValue("@PostalCode", c.PostalCode);
+                    cmd.Parameters.AddWithValue("@Country", c.Country);
+                    cmd.Parameters.AddWithValue("@CityName", c.CityName);
+                    c.CityID = (long) cmd.ExecuteScalar();
+                }
+            }
+        }
+
+        public void DeleteCityDB(ref City c)
+        {
+            string deleteString = @"DELETE FROM City WHERE (CityID = @CityID)";
+
+            using (SqlCommand cmd = new SqlCommand(deleteString, OpenConnection))
+            {
+                cmd.Parameters.AddWithValue("@CityID", c.CityID);
+
+                cmd.ExecuteNonQuery();
             }
         }
 
@@ -76,49 +102,136 @@ namespace Infrastructure
 
                 if (rdr.Read())
                 {
-                    City tempCity = new City((string)rdr["CityName"], (string)rdr["PostalCode"], (string)rdr["Country"]);
-                    tempCity.Addresses = (ICollection<Address>) rdr["Addresses"];
-                    c = tempCity;
-                    /*
                     c.CityName = (string) rdr["CityName"];
                     c.CityID = (long)rdr["CityID"];
                     c.Country = (string)rdr["Country"];
-                    c.PostalCode = (string) rdr["PostalCode"];*/
+                    c.PostalCode = (string) rdr["PostalCode"];
                 }
             }
         }
 
         public void AddAddressDB(ref Address a)
         {
-            string insertStringParam = @"INSERT INTO [Address] (StreetName, StreetNumber, CityID)
+            string insertStringParam1 = "SELECT COUNT(*) FROM[Address] WHERE (StreetName = @StreetName and StreetNumber = @StreetNumber and CityID = @CityID)";
+
+            SqlCommand check_if_city_exists = new SqlCommand(insertStringParam1, OpenConnection);
+            check_if_city_exists.Parameters.AddWithValue("@StreetName", a.StreetName);
+            check_if_city_exists.Parameters.AddWithValue("@StreetNumber", a.StreetNumber);
+            check_if_city_exists.Parameters.AddWithValue("@CityID", a.CityID);
+
+            int UserExist = (int)check_if_city_exists.ExecuteScalar();
+
+            if (UserExist > 0)
+            {
+                //Username exist
+            }
+            else
+            {
+                string insertStringParam = @"INSERT INTO [Address] (StreetName, StreetNumber, CityID)
                                             OUTPUT INSERTED.AddressID
                                             VALUES (@StreetName, @StreetNumber, @CityID)";
 
-            using (SqlCommand cmd = new SqlCommand(insertStringParam, OpenConnection))
+                using (SqlCommand cmd = new SqlCommand(insertStringParam, OpenConnection))
+                {
+                    cmd.Parameters.AddWithValue("@StreetName", a.StreetName);
+                    cmd.Parameters.AddWithValue("@StreetNumber", a.StreetNumber);
+                    cmd.Parameters.AddWithValue("@CityID", a.CityID);
+                    a.AddressID = (long) cmd.ExecuteScalar();
+                }
+            }
+        }
+
+        public void GetAddressIDByStreetNameAndStreetNumberAndCityID(ref Address c)
+        {
+            string sqlcmd = @"SELECT  TOP 1 * FROM Address WHERE (StreetName = @StreetName) AND (StreetNumber = @StreetNumber) AND (CityID = @CityID)";
+            using (var cmd = new SqlCommand(sqlcmd, OpenConnection))
+            {
+                cmd.Parameters.AddWithValue("@StreetName", c.StreetName);
+                cmd.Parameters.AddWithValue("@StreetNumber", c.StreetNumber);
+                cmd.Parameters.AddWithValue("@CityID", c.CityID);
+                SqlDataReader rdr = null;
+                rdr = cmd.ExecuteReader();
+
+                if (rdr.Read())
+                {
+                    c.AddressID = (long)rdr["AddressID"];
+                }
+            }
+        }
+
+        public void UpdateAddressDB(ref Address a)
+        {
+            string updateString =
+                @"UPDATE Address
+                  SET StreetName = @StreetName, StreetNumber = @StreetNumber, CityID = @CityID
+                  WHERE AddressID = @AddressID";
+
+            using (SqlCommand cmd = new SqlCommand(updateString, OpenConnection))
             {
                 cmd.Parameters.AddWithValue("@StreetName", a.StreetName);
                 cmd.Parameters.AddWithValue("@StreetNumber", a.StreetNumber);
                 cmd.Parameters.AddWithValue("@CityID", a.CityID);
-                a.AddressID = (long)cmd.ExecuteScalar();
+                cmd.Parameters.AddWithValue("@AddressID", a.AddressID);
+                /*var id = (long)*/cmd.ExecuteNonQuery();
             }
         }
 
         public void AddPersonDB(ref Person p)
         {
-            string insertStringParam = @"INSERT INTO [Person] (FirstName, LastName, Nationality, Gender, AddressID)
-                                            OUTPUT INSERTED.PersonID
-                                            VALUES (@FirstName, @LastName, @Nationality, @Gender, @AddressID)";
+            string insertStringParam1 = "SELECT COUNT(*) FROM[Person] WHERE (FirstName = @FirstName and LastName = @LastName and Gender = " +
+                                        "@Gender and Nationality = @Nationality and AddressID = @AddressID)";
 
-            using (SqlCommand cmd = new SqlCommand(insertStringParam, OpenConnection))
+            SqlCommand check_if_city_exists = new SqlCommand(insertStringParam1, OpenConnection);
+            check_if_city_exists.Parameters.AddWithValue("@FirstName", p.FirstName);
+            check_if_city_exists.Parameters.AddWithValue("@LastName", p.LastName);
+            check_if_city_exists.Parameters.AddWithValue("@Gender", p.Gender);
+            check_if_city_exists.Parameters.AddWithValue("@Nationality", p.Nationality);
+            check_if_city_exists.Parameters.AddWithValue("@AddressID", p.AddressID);
+
+            int UserExist = (int)check_if_city_exists.ExecuteScalar();
+
+            if (UserExist > 0)
             {
-                //cmd.Parameters.AddWithValue("@PersonID", 1);
-                cmd.Parameters.AddWithValue("@FirstName", p.FirstName);
-                cmd.Parameters.AddWithValue("@LastName", p.LastName);
-                cmd.Parameters.AddWithValue("@Nationality", p.Nationality);
-                cmd.Parameters.AddWithValue("@Gender", p.Gender);
-                cmd.Parameters.AddWithValue("@AddressID", p.AddressID);
-                p.PersonID = (long)cmd.ExecuteScalar();
-                //p.PrimaryAddress = (Address)cmd.ExecuteScalar();
+                //Username exist
+            }
+            else
+            {
+                string insertStringParam = @"INSERT INTO [Person] (FirstName, LastName, Nationality, Gender, AddressID)
+                                                OUTPUT INSERTED.PersonID
+                                                VALUES (@FirstName, @LastName, @Nationality, @Gender, @AddressID)";
+
+                using (SqlCommand cmd = new SqlCommand(insertStringParam, OpenConnection))
+                {
+                    //cmd.Parameters.AddWithValue("@PersonID", 1);
+                    cmd.Parameters.AddWithValue("@FirstName", p.FirstName);
+                    cmd.Parameters.AddWithValue("@LastName", p.LastName);
+                    cmd.Parameters.AddWithValue("@Nationality", p.Nationality);
+                    cmd.Parameters.AddWithValue("@Gender", p.Gender);
+                    cmd.Parameters.AddWithValue("@AddressID", p.AddressID);
+                    p.PersonID = (long)cmd.ExecuteScalar();
+                    //p.PrimaryAddress = (Address)cmd.ExecuteScalar();
+                }  
+            }
+        }
+
+        public void GetPersonIDByFirstNameAndLastNameAndNationalityAndGenderAndAddressID(ref Person c)
+        {
+            string sqlcmd = @"SELECT  TOP 1 * FROM Person WHERE (FirstName = @FirstName) AND (LastName = @LastName) AND (Nationality = @Nationality) AND (Gender = @Gender) AND (AddressID = @AddressID)";
+            using (var cmd = new SqlCommand(sqlcmd, OpenConnection))
+            {
+                cmd.Parameters.AddWithValue("@FirstName", c.FirstName);
+                cmd.Parameters.AddWithValue("@LastName", c.LastName);
+                cmd.Parameters.AddWithValue("@Nationality", c.Nationality);
+                cmd.Parameters.AddWithValue("@Gender", c.Gender);
+                cmd.Parameters.AddWithValue("@AddressID", c.AddressID);
+
+                SqlDataReader rdr = null;
+                rdr = cmd.ExecuteReader();
+
+                if (rdr.Read())
+                {
+                    c.PersonID = (long)rdr["PersonID"];
+                }
             }
         }
 
@@ -137,8 +250,21 @@ namespace Infrastructure
                 cmd.Parameters.AddWithValue("@Nationality", p.Nationality);
                 cmd.Parameters.AddWithValue("@Gender", p.Gender);
                 cmd.Parameters.AddWithValue("@AddressID", p.AddressID);
+                cmd.Parameters.AddWithValue("@PersonID", p.PersonID);
 
                 var id = (long)cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void DeletePersonDB(ref Person c)
+        {
+            string deleteString = @"DELETE FROM Person WHERE (PersonID = @PersonID)";
+
+            using (SqlCommand cmd = new SqlCommand(deleteString, OpenConnection))
+            {
+                cmd.Parameters.AddWithValue("@PersonID", c.PersonID);
+
+                cmd.ExecuteNonQuery();
             }
         }
 

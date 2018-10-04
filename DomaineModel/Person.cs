@@ -18,7 +18,7 @@ namespace DomaineModel
             Nationality = _Nationality;
             Gender = _Gender;
             AddressID = _Address.AddressID;
-            _Address.Persons.Add(this);
+            //_Address.Persons.Add(this);
 
             //AddressID = GetAddressIDByStreetNameAndNumber(_Address.StreetName, _Address.StreetNumber); //Create if not found
             //PrimaryAddress = GetAddressObjectByAddressID(AddressID);

@@ -14,7 +14,7 @@ namespace DomaineModel
             StreetName = _StreetName;
             StreetNumber = _StreetNumber;
             CityID = _City.CityID;
-            _City.Addresses.Add(this);
+            //_City.Addresses.Add(this);
             Persons = new List<Person>();
 
             //PKDBUtil _pkdbUtil = new PKDBUtil();
