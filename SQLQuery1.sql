@@ -1,1 +1,1 @@
-﻿
+﻿SELECT  *  FROM City INNER JOIN Address ON City.CityID = Address.CityID

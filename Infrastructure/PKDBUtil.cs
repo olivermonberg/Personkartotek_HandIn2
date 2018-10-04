@@ -10,14 +10,13 @@ namespace Infrastructure
 {
     public class PKDBUtil
     {
-        
         private Person currentPerson;
         /// <summary>
         /// Constructor may be use to initialize the connection string and likely setup things 
         /// </summary>
         public PKDBUtil()
         {
-            currentPerson = new Person("", "", "", "", 0);
+            //currentPerson = new Person("", "", "", "", null);
         }
 
         private SqlConnection OpenConnection
@@ -25,7 +24,7 @@ namespace Infrastructure
             get
             {
                 //var con = new SqlConnection(@"Data Source=(localdb)\ProjectsV13;Initial Catalog=CraftManDB;Integrated Security=True");
-                var con = new SqlConnection(@"Data Source=(localdb)\ProjectsV13;Initial Catalog=Personkartotek_HandIn2;Integrated Security=True;Pooling=False;Connect Timeout=30");
+                var con = new SqlConnection(@"Data Source=10.83.16.131;Initial Catalog=E18I4DABau554208;User ID=E18I4DABau554208;Password=E18I4DABau554208;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
                 con.Open();
                 return con;
             }
@@ -48,6 +47,47 @@ namespace Infrastructure
             }
         }
 
+        public void GetCityIDByCityNameAndPostalCodeAndCountry(ref City c)
+        {
+            string sqlcmd = @"SELECT  TOP 1 * FROM City WHERE (CityName = @CityName) AND (PostalCode = @PostalCode) AND (Country = @Country)";
+            using (var cmd = new SqlCommand(sqlcmd, OpenConnection))
+            {
+                cmd.Parameters.AddWithValue("@CityName", c.CityName);
+                cmd.Parameters.AddWithValue("@PostalCode", c.PostalCode);
+                cmd.Parameters.AddWithValue("@Country", c.Country);
+                SqlDataReader rdr = null;
+                rdr = cmd.ExecuteReader();
+
+                if (rdr.Read())
+                {
+                    c.CityID = (long) rdr["CityID"];
+                }
+            }
+        }
+
+        public void GetCityObjectByID(ref City c)
+        {
+            string sqlcmd = @"SELECT  TOP 1 * FROM City WHERE (CityID = @CityID)";
+            using (var cmd = new SqlCommand(sqlcmd, OpenConnection))
+            {
+                cmd.Parameters.AddWithValue("@CityID", c.CityID);
+                SqlDataReader rdr = null;
+                rdr = cmd.ExecuteReader();
+
+                if (rdr.Read())
+                {
+                    City tempCity = new City((string)rdr["CityName"], (string)rdr["PostalCode"], (string)rdr["Country"]);
+                    tempCity.Addresses = (ICollection<Address>) rdr["Addresses"];
+                    c = tempCity;
+                    /*
+                    c.CityName = (string) rdr["CityName"];
+                    c.CityID = (long)rdr["CityID"];
+                    c.Country = (string)rdr["Country"];
+                    c.PostalCode = (string) rdr["PostalCode"];*/
+                }
+            }
+        }
+
         public void AddAddressDB(ref Address a)
         {
             string insertStringParam = @"INSERT INTO [Address] (StreetName, StreetNumber, CityID)
@@ -56,12 +96,10 @@ namespace Infrastructure
 
             using (SqlCommand cmd = new SqlCommand(insertStringParam, OpenConnection))
             {
-                //cmd.Parameters.AddWithValue("@PersonID", 1);
                 cmd.Parameters.AddWithValue("@StreetName", a.StreetName);
                 cmd.Parameters.AddWithValue("@StreetNumber", a.StreetNumber);
                 cmd.Parameters.AddWithValue("@CityID", a.CityID);
                 a.AddressID = (long)cmd.ExecuteScalar();
-                //p.PrimaryAddress = (Address)cmd.ExecuteScalar();
             }
         }
 
@@ -104,6 +142,7 @@ namespace Infrastructure
             }
         }
 
+        /*
         public long GetCityIDByName(string CityName)
         {
             string sqlcmd = @"SELECT TOP 1 * FROM City WHERE (CityName = @CName)";
@@ -127,7 +166,7 @@ namespace Infrastructure
                     return 0;
                 }
             }
-        }
+        }*/
 
         public void GetPersonByName(ref Person p)
         {

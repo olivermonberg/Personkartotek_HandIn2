@@ -61,6 +61,13 @@
 -- StreetName      :  
 -- StreetNumber    :  
 --
+--
+-- Create Table    : 'Address'   
+-- AddressID       :  
+-- CityID          :  (references City.CityID)
+-- StreetName      :  
+-- StreetNumber    :  
+--
 CREATE TABLE Address (
     AddressID      BIGINT IDENTITY(1,1) NOT NULL,
     CityID         BIGINT NOT NULL,

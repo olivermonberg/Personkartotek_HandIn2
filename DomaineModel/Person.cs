@@ -11,17 +11,18 @@ namespace DomaineModel
         //public Person(string _FirstName, string _LastName, string _Nationality,
         //string _Gender, Address _Address)
         public Person(string _FirstName, string _LastName, string _Nationality,
-            string _Gender, long _AddressID)
+            string _Gender, Address _Address)
         {
             FirstName = _FirstName;
             LastName = _LastName;
             Nationality = _Nationality;
             Gender = _Gender;
-            AddressID = _AddressID;
+            AddressID = _Address.AddressID;
+            _Address.Persons.Add(this);
 
             //AddressID = GetAddressIDByStreetNameAndNumber(_Address.StreetName, _Address.StreetNumber); //Create if not found
             //PrimaryAddress = GetAddressObjectByAddressID(AddressID);
-            //PrimaryAddress.Addresses.Add(this);
+            //PrimaryAddress.Persons.Add(this);
 
             AlternativeAddresses = new List<AlternativeAddress>();
             Notes = new List<Note>();

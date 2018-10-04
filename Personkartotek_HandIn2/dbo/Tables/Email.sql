@@ -52,6 +52,12 @@
 -- PersonID        :  (references Person.PersonID)
 -- EmailAddress    :  
 --
+--
+-- Create Table    : 'Email'   
+-- EmailID         :  
+-- PersonID        :  (references Person.PersonID)
+-- EmailAddress    :  
+--
 CREATE TABLE Email (
     EmailID        BIGINT IDENTITY(1,1) NOT NULL,
     PersonID       BIGINT NOT NULL,

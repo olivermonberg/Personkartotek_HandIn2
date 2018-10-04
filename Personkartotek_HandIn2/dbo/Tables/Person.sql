@@ -59,6 +59,15 @@
 -- Nationality     :  
 -- Gender          :  
 --
+--
+-- Create Table    : 'Person'   
+-- PersonID        :  
+-- AddressID       :  (references Address.AddressID)
+-- FirstName       :  
+-- LastName        :  
+-- Nationality     :  
+-- Gender          :  
+--
 CREATE TABLE Person (
     PersonID       BIGINT IDENTITY(1,1) NOT NULL,
     AddressID      BIGINT NOT NULL,

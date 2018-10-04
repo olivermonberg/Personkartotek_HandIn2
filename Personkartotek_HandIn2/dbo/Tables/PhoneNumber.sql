@@ -61,6 +61,13 @@
 -- PhoneCarrierID  :  (references PhoneCarrier.PhoneCarrierID)
 -- Num             :  
 --
+--
+-- Create Table    : 'PhoneNumber'   
+-- PhoneNumberID   :  
+-- PersonID        :  (references Person.PersonID)
+-- PhoneCarrierID  :  (references PhoneCarrier.PhoneCarrierID)
+-- Num             :  
+--
 CREATE TABLE PhoneNumber (
     PhoneNumberID  BIGINT IDENTITY(1,1) NOT NULL,
     PersonID       BIGINT NOT NULL,

@@ -52,6 +52,12 @@
 -- PersonID        :  (references Person.PersonID)
 -- NoteText        :  
 --
+--
+-- Create Table    : 'Note'   
+-- NoteID          :  
+-- PersonID        :  (references Person.PersonID)
+-- NoteText        :  
+--
 CREATE TABLE Note (
     NoteID         BIGINT IDENTITY(1,1) NOT NULL,
     PersonID       BIGINT NOT NULL,

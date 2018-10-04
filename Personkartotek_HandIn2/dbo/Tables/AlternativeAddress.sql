@@ -54,6 +54,13 @@
 -- AlternativeAddressID :  
 -- Type            :  
 --
+--
+-- Create Table    : 'AlternativeAddress'   
+-- PersonID        :  (references Person.PersonID)
+-- AddressID       :  (references Address.AddressID)
+-- AlternativeAddressID :  
+-- Type            :  
+--
 CREATE TABLE AlternativeAddress (
     PersonID       BIGINT NOT NULL,
     AddressID      BIGINT NOT NULL,
