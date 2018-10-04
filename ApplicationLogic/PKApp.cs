@@ -15,61 +15,58 @@ namespace ApplicationLogic
             PKDBUtil PKUtil = new PKDBUtil();
             //Person tempPerson = new Person("Oliver", "Monberg", "", "", null);
 
-            
-            City c1 = new City("Aarhus", "8200", "Denmark");
 
-            //PKUtil.AddCityDB(ref c1);
-            //
-            //City c2 = new City("Aarhus", "8200", "Denmark");
-            //PKUtil.AddCityDB(ref c2);
-            
-            PKUtil.GetCityIDByCityNameAndPostalCodeAndCountry(ref c1);
-            //PKUtil.DeleteCityDB(ref c1);
+            City c2 = new City("Aarhus", "8200", "Denmark");
+            PKUtil.GetCityIDByCityNameAndPostalCodeAndCountry(ref c2);
 
-            //PKUtil.GetCityObjectByID(ref c1);
-            
-            Address a1 = new Address("Goeteborg Alle", "12", c1);
-            //PKUtil.AddAddressDB(ref a1);
+            Address a2 = new Address("Goeteborg Alle", "12", c2);
+            PKUtil.GetAddressIDByStreetNameAndStreetNumberAndCityID(ref a2);
 
-            
-            PKUtil.GetAddressIDByStreetNameAndStreetNumberAndCityID(ref a1);
-
-            Person p1 = new Person("Briam", "Monberg2", "Danish2", "Male2", a1);
-            //PKUtil.AddPersonDB(ref p1);
-
+            Person p1 = new Person("Leif", "Larsen", "Vietnam", "Male", a2);
             PKUtil.GetPersonIDByFirstNameAndLastNameAndNationalityAndGenderAndAddressID(ref p1);
 
-            //p1.FirstName = "Briam";
 
+            City c1 = new City("Grenaa", "1234", "Denmark");
+            //PKUtil.AddCityDB(ref c1);
+
+            PKUtil.GetCityIDByCityNameAndPostalCodeAndCountry(ref c1);
+
+            Address a1 = new Address("Torskevej", "10", c1);
+            //PKUtil.AddAddressDB(ref a1);
+            PKUtil.GetAddressIDByStreetNameAndStreetNumberAndCityID(ref a1);
+
+            AlternativeAddress aa1 = new AlternativeAddress(p1, a1, "Sommerhus");
+            //PKUtil.AddAlternativeAddressDB(ref aa1);
+
+            PKUtil.GetAlternativeAddressIDByPersonAndAddressAndType(ref aa1);
+
+            City c3 = new City("Silkeborg", "4321", "Denmark");
+            //PKUtil.AddCityDB(ref c3);
+
+            PKUtil.GetCityIDByCityNameAndPostalCodeAndCountry(ref c3);
+
+            Address a3 = new Address("Filetvej", "20", c3);
+            //PKUtil.AddAddressDB(ref a3);
+
+            PKUtil.GetAddressIDByStreetNameAndStreetNumberAndCityID(ref a3);
+
+
+
+            aa1.AddressID = a3.AddressID;
+            PKUtil.UpdateAlternativeAddressDB(ref aa1);
+
+
+
+            PKUtil.DeleteAlternativeAddressDB(ref aa1);
+
+            //City c2 = new City("Aarhus", "8200", "Denmark");
+            //PKUtil.GetCityIDByCityNameAndPostalCodeAndCountry(ref c2);
+            //Address a2 = new Address("Goeteborg Alle", "12", c2);
+            //PKUtil.GetAddressIDByStreetNameAndStreetNumberAndCityID(ref a2);
+            //
+            //p1.AddressID = a2.AddressID;
             //PKUtil.UpdatePersonDB(ref p1);
 
-            PKUtil.DeletePersonDB(ref p1);
-
-            /*Address a2 = new Address("Johannesgade", "10",c1);
-            a2.AddressID = a1.AddressID;
-
-            PKUtil.UpdateAddressDB(ref a2);
-
-            Console.ReadKey();
-            */
-
-
-            //Person p1 = new Person("Olivers", "Monberg", "Danish", "Male", a1);
-            //PKUtil.AddPersonDB(ref p1);
-
-
-            //PKUtil.UpdatePersonDB();
-
-            /*
-            PKUtil.GetPersonByName(ref tempPerson);
-
-            long l = PKUtil.GetCityIDByName("Aarhus");
-
-            Console.WriteLine($"CityID: {l}");
-
-            Console.WriteLine($"Person1 - Name: {tempPerson.FirstName} {tempPerson.LastName}." +
-                              $"Nationality: {tempPerson.Nationality}. Gender: {tempPerson.Gender}. PersonID: {tempPerson.PersonID}");
-            */
             //Console.ReadKey();
         }
     }

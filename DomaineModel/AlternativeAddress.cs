@@ -12,8 +12,8 @@ namespace DomaineModel
         public AlternativeAddress(Person _person, Address _address, string _type)
         {
             Type = _type;
-            //Address = _address;
-            //Person = _person;
+            AddressID = _address.AddressID;
+            PersonID = _person.PersonID;
 
             //PersonID = GetPersonIDByFirstAndLastNameAndCountry(_person.FirstName, _person.LastName, _person.Country);
             //Person = GetPersonObjectByPersonID(PersonID);

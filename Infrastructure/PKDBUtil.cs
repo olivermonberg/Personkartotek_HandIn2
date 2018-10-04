@@ -268,53 +268,82 @@ namespace Infrastructure
             }
         }
 
-        /*
-        public long GetCityIDByName(string CityName)
+        public void AddAlternativeAddressDB(ref AlternativeAddress p)
         {
-            string sqlcmd = @"SELECT TOP 1 * FROM City WHERE (CityName = @CName)";
-            long id = 0;
+            string insertStringParam1 = "SELECT COUNT(*) FROM[AlternativeAddress] WHERE (PersonID = @PersonID and AddressID = @AddressID and Type = @Type)";
 
-            using (var cmd = new SqlCommand(sqlcmd, OpenConnection))
+            SqlCommand check_if_city_exists = new SqlCommand(insertStringParam1, OpenConnection);
+            check_if_city_exists.Parameters.AddWithValue("@PersonID", p.PersonID);
+            check_if_city_exists.Parameters.AddWithValue("@AddressID", p.AddressID);
+            check_if_city_exists.Parameters.AddWithValue("@Type", p.Type);
+
+            int UserExist = (int)check_if_city_exists.ExecuteScalar();
+
+            if (UserExist > 0)
             {
-                cmd.Parameters.AddWithValue("@CName", CityName);
-                SqlDataReader rdr = null;
-                rdr = cmd.ExecuteReader();
+                //Username exist
+            }
+            else
+            {
+                string insertStringParam = @"INSERT INTO [AlternativeAddress] (PersonID, AddressID, Type)
+                                                OUTPUT INSERTED.PersonID
+                                                VALUES (@PersonID, @AddressID, @Type)";
 
-                if (rdr.Read())
+                using (SqlCommand cmd = new SqlCommand(insertStringParam, OpenConnection))
                 {
-                    Console.WriteLine("CityID found.");
-                    id = (long)rdr["CityID"];
-                    return id;
-                }
-                else
-                {
-                    Console.WriteLine("CityID not found.");
-                    return 0;
+                    cmd.Parameters.AddWithValue("@PersonID", p.PersonID);
+                    cmd.Parameters.AddWithValue("@AddressID", p.AddressID);
+                    cmd.Parameters.AddWithValue("@Type", p.Type);
+                    p.AlternativeAddressID = (long)cmd.ExecuteScalar();
                 }
             }
-        }*/
+        }
 
-        public void GetPersonByName(ref Person p)
+        public void GetAlternativeAddressIDByPersonAndAddressAndType(ref AlternativeAddress c)
         {
-            string sqlcmd = @"SELECT  TOP 1 * FROM Person WHERE (FirstName = @FName) AND (LastName=@LName)";
+            string sqlcmd = @"SELECT  TOP 1 * FROM AlternativeAddress WHERE (PersonID = @PersonID) AND (AddressID = @AddressID) AND (Type = @Type)";
             using (var cmd = new SqlCommand(sqlcmd, OpenConnection))
             {
-                cmd.Parameters.AddWithValue("@FName", p.FirstName);
-                cmd.Parameters.AddWithValue("@LName", p.LastName);
+                cmd.Parameters.AddWithValue("@PersonID", c.PersonID);
+                cmd.Parameters.AddWithValue("@AddressID", c.AddressID);
+                cmd.Parameters.AddWithValue("@Type", c.Type);
+
                 SqlDataReader rdr = null;
                 rdr = cmd.ExecuteReader();
 
                 if (rdr.Read())
                 {
-                    Console.WriteLine("Person found.");
-                    currentPerson.PersonID = (long)rdr["PersonID"];
-                    currentPerson.FirstName = (string)rdr["FirstName"];
-                    currentPerson.LastName = (string)rdr["LastName"];
-                    currentPerson.Nationality = (string)rdr["Nationality"];
-                    currentPerson.Gender = (string)rdr["Gender"];
-                    currentPerson.AddressID = (long)rdr["AddressID"];
-                    p = currentPerson;
+                    c.AlternativeAddressID = (long)rdr["AlternativeAddressID"];
                 }
+            }
+        }
+
+        public void UpdateAlternativeAddressDB(ref AlternativeAddress p)
+        {
+            string updateString =
+                @"UPDATE AlternativeAddress
+                  SET PersonID = @PersonID, AddressID = @AddressID, Type = @Type
+                  WHERE AlternativeAddressID = @AlternativeAddressID";
+
+            using (SqlCommand cmd = new SqlCommand(updateString, OpenConnection))
+            {
+                cmd.Parameters.AddWithValue("@Type", p.Type);
+                cmd.Parameters.AddWithValue("@AddressID", p.AddressID);
+                cmd.Parameters.AddWithValue("@PersonID", p.PersonID);
+                cmd.Parameters.AddWithValue("@AlternativeAddressID", p.AlternativeAddressID);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void DeleteAlternativeAddressDB(ref AlternativeAddress c)
+        {
+            string deleteString = @"DELETE FROM AlternativeAddress WHERE (AlternativeAddressID = @AlternativeAddressID)";
+
+            using (SqlCommand cmd = new SqlCommand(deleteString, OpenConnection))
+            {
+                cmd.Parameters.AddWithValue("@AlternativeAddressID", c.AlternativeAddressID);
+
+                cmd.ExecuteNonQuery();
             }
         }
     }
