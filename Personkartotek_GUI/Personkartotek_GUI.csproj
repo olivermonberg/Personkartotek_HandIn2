@@ -65,6 +65,12 @@
     <Compile Include="ChangePersonsPrimaryAddressWindow.xaml.cs">
       <DependentUpon>ChangePersonsPrimaryAddressWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DeleteAA.xaml.cs">
+      <DependentUpon>DeleteAA.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UpdateAA.xaml.cs">
+      <DependentUpon>UpdateAA.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UpdatePersonInfoWindow.xaml.cs">
       <DependentUpon>UpdatePersonInfoWindow.xaml</DependentUpon>
     </Compile>
@@ -73,6 +79,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ChangePersonsPrimaryAddressWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DeleteAA.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -88,6 +98,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UpdateAA.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UpdatePersonInfoWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

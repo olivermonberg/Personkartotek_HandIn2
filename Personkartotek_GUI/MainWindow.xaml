@@ -30,7 +30,33 @@
         </Style>
     </Window.Resources>
 
-    <Grid>
+<Grid ShowGridLines="True">
+    <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+            <ColumnDefinition Width ="*"/>
+            <ColumnDefinition Width ="*"/>
+    </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="1" Grid.Row="0">
+            <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+                <ColumnDefinition Width ="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Content="Select person:" Grid.Column="0" Grid.Row="0"></Label>
+            <ListBox x:Name="PersonsList" Grid.Column="1" Grid.Row="1" Width="auto" Margin="5" Loaded="PersonsList_Loaded" SelectionChanged="PersonsList_SelectionChanged"></ListBox>
+            <Button Name="RefreshDB" Content="Refresh list" Grid.Column="0" Grid.Row="2" Click="RefreshDB_Click"></Button>
+        </Grid>
+
+        <Grid Grid.Column="0" Grid.Row="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -45,12 +71,9 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width ="*"/>
-            <ColumnDefinition Width ="*"/>
-            <ColumnDefinition Width ="*"/>
-            <ColumnDefinition Width ="*"/>
+                <ColumnDefinition Width ="*"/>
+                <ColumnDefinition Width ="*"/>
         </Grid.ColumnDefinitions>
-
-        
 
         <Label Content="Person Information:" Grid.Column="1" Grid.Row="0"></Label>
         <!--<Label Content="Update information:" Grid.Column="2" Grid.Row="0"></Label>-->
@@ -85,13 +108,16 @@
         <TextBox Name="newPostalCodeBox"  Grid.Column="2" Grid.Row="8"></TextBox>
         <TextBox Name="newCountryBox"  Grid.Column="2" Grid.Row="9"></TextBox>-->
 
-        <Button Name="AddPersonBttn" Content="Add person" Grid.Column="3" Grid.Row="1" Click="AddPersonBttn_Click"></Button>
-        <Button Name="UpdatePersonBttn" Content="Update person information" Grid.Column="3" Grid.Row="2" Click="UpdatePersonInfoBttn_Click"></Button>
-        <Button Name="DeletePersonBttn" Content="Delete person" Grid.Column="3" Grid.Row="3" Click="DeletePersonBttn_Click"></Button>
-        <Button Name="ChangePersonsPrimaryAddressBttn" Content="Change persons primary address" Grid.Column="3" Grid.Row="4" Click="ChangePersonsPrimaryAddressBttn_Click"></Button>
-        <Button Name="AddAlternativeAddressBttn" Content="Add alternative address" Grid.Column="3" Grid.Row="5" Click="AddAlternativeAddressBttn_Click"></Button>
+        <Button Name="AddPersonBttn" Content="Add person" Grid.Column="2" Grid.Row="1" Click="AddPersonBttn_Click"></Button>
+        <Button Name="UpdatePersonBttn" Content="Update person information" Grid.Column="2" Grid.Row="2" Click="UpdatePersonInfoBttn_Click"></Button>
+        <Button Name="DeletePersonBttn" Content="Delete person" Grid.Column="2" Grid.Row="3" Click="DeletePersonBttn_Click"></Button>
+        <Button Name="ChangePersonsPrimaryAddressBttn" Content="Change persons primary address" Grid.Column="2" Grid.Row="4" Click="ChangePersonsPrimaryAddressBttn_Click"></Button>
+        <Button Name="AddAlternativeAddressBttn" Content="Add alternative address" Grid.Column="2" Grid.Row="5" Click="AddAlternativeAddressBttn_Click"></Button>
+        <Button Name="ChangeAlternativeAddressBttn" Content="Change alternative address" Grid.Column="2" Grid.Row="6" Click="ChangeAlternativeAddressBttn_Click" ></Button>
+            <Button Name="DeleteAlternativeAddressBttn" Content="Delete alternative addresses" Grid.Column="2" Grid.Row="7" Click="DeleteAlternativeAddressBttn_Click"  ></Button>
 
-    </Grid>
+</Grid>
+</Grid>
 </Window>
 
 

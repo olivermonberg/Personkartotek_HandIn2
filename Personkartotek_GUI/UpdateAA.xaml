@@ -1,11 +1,11 @@
-﻿<Window x:Class="Personkartotek_GUI.AddAlternativeAddressWindow"
+﻿<Window x:Class="Personkartotek_GUI.UpdateAA"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Personkartotek_GUI"
         mc:Ignorable="d"
-        Title="AddAlternativeAddressWindow" Height="450" Width="800">
+        Title="UpdateAA" Height="450" Width="800">
     <Window.Resources>
         <Style TargetType="{x:Type Label}">
             <Style.Setters>
@@ -54,7 +54,7 @@
             <Button Name="RefreshAADB" Content="Refresh list" Grid.Column="0" Grid.Row="2" Click="RefreshAADB_Click"></Button>
         </Grid>-->
 
-        <Grid>
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -73,7 +73,8 @@
 
 
 
-        <Label Content="Alternative address:" Grid.Column="1" Grid.Row="0"></Label>
+        <Label Content="Current Alternative address:" Grid.Column="1" Grid.Row="0"></Label>
+        <Label Content="New Alternative address:" Grid.Column="2" Grid.Row="0"></Label>
 
         <Label Content="Type:" Grid.Column="0" Grid.Row="1"></Label>
         <Label Content="Street name:" Grid.Column="0" Grid.Row="2"></Label>
@@ -89,9 +90,15 @@
         <TextBox Name="PostalCodeBox"  Grid.Column="1" Grid.Row="5"></TextBox>
         <TextBox Name="CountryBox"  Grid.Column="1" Grid.Row="6"></TextBox>
 
-        <Button Name="Add" Content="Add" Grid.Column="1" Grid.Row="7" Click="Add_Click"></Button>
+        <TextBox Name="newTypeBox"  Grid.Column="2" Grid.Row="1"></TextBox>
+        <TextBox Name="newStreetNameBox"  Grid.Column="2" Grid.Row="2"></TextBox>
+        <TextBox Name="newStreetNumberBox"  Grid.Column="2" Grid.Row="3"></TextBox>
+        <TextBox Name="newCityNameBox"  Grid.Column="2" Grid.Row="4"></TextBox>
+        <TextBox Name="newPostalCodeBox"  Grid.Column="2" Grid.Row="5"></TextBox>
+        <TextBox Name="newCountryBox"  Grid.Column="2" Grid.Row="6"></TextBox>
+
+        <Button Name="Change" Content="Change" Grid.Column="2" Grid.Row="7" Click="Change_Click"></Button>
 
 
     </Grid>
-    <!--</Grid>-->
 </Window>
