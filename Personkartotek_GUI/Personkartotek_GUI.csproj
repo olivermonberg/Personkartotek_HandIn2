@@ -59,9 +59,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddAlternativeAddressWindow.xaml.cs">
+      <DependentUpon>AddAlternativeAddressWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ChangePersonsPrimaryAddressWindow.xaml.cs">
+      <DependentUpon>ChangePersonsPrimaryAddressWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UpdatePersonInfoWindow.xaml.cs">
       <DependentUpon>UpdatePersonInfoWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="AddAlternativeAddressWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ChangePersonsPrimaryAddressWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.RightsManagement;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -24,7 +25,8 @@ namespace Personkartotek_GUI
             InitializeComponent();
         }
 
-        public bool ChangeBttnPressed = false;
+        public static bool ChangeBttnPressed = false;
+        public static string FirstName, LastName, Nationality, Gender = "";
 
         private void ChangePersonInfoBttn_Click(object sender, RoutedEventArgs e)
         {
@@ -34,8 +36,13 @@ namespace Personkartotek_GUI
             }
             else
             {
+                FirstName = FirstNameBox.Text;
+                LastName = LastNameBox.Text;
+                Nationality = NationalityBox.Text;
+                Gender = GenderBox.Text;
+
                 ChangeBttnPressed = true;
-                
+                Close();
             }
         }
     }
