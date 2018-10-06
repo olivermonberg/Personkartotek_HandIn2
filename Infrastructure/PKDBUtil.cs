@@ -172,7 +172,7 @@ namespace Infrastructure
                 cmd.Parameters.AddWithValue("@StreetNumber", a.StreetNumber);
                 cmd.Parameters.AddWithValue("@CityID", a.CityID);
                 cmd.Parameters.AddWithValue("@AddressID", a.AddressID);
-                /*var id = (long)*/cmd.ExecuteNonQuery();
+                cmd.ExecuteNonQuery();
             }
         }
 
@@ -342,6 +342,79 @@ namespace Infrastructure
             using (SqlCommand cmd = new SqlCommand(deleteString, OpenConnection))
             {
                 cmd.Parameters.AddWithValue("@AlternativeAddressID", c.AlternativeAddressID);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void AddNoteDB(ref Note c)
+        {
+            string insertStringParam1 = "SELECT COUNT(*) FROM[Note] WHERE (NoteText = @NoteText and PersonID = @PersonID)";
+
+            SqlCommand check_if_city_exists = new SqlCommand(insertStringParam1, OpenConnection);
+            check_if_city_exists.Parameters.AddWithValue("@NoteText", c.NoteText);
+            check_if_city_exists.Parameters.AddWithValue("@PersonID", c.PersonID);
+
+            int UserExist = (int)check_if_city_exists.ExecuteScalar();
+
+            if (UserExist > 0)
+            {
+                //Username exist
+            }
+            else
+            {
+                //Username doesn't exist.
+                string insertStringParam = @"INSERT INTO [Note] (NoteText, PersonID)
+                                                OUTPUT INSERTED.NoteID
+                                                VALUES (@NoteText, @PersonID)";
+
+                using (SqlCommand cmd = new SqlCommand(insertStringParam, OpenConnection))
+                {
+                    cmd.Parameters.AddWithValue("@NoteText", c.NoteText);
+                    cmd.Parameters.AddWithValue("@PersonID", c.PersonID);
+                    c.NoteID = (long)cmd.ExecuteScalar();
+                }
+            }
+        }
+
+        public void GetNoteIDByNoteTextAndPersonID(ref Note c)
+        {
+            string sqlcmd = @"SELECT  TOP 1 * FROM Note WHERE (NoteText = @NoteText) AND (PersonID = @PersonID)";
+            using (var cmd = new SqlCommand(sqlcmd, OpenConnection))
+            {
+                cmd.Parameters.AddWithValue("@NoteText", c.NoteText);
+                cmd.Parameters.AddWithValue("@PersonID", c.PersonID);
+                SqlDataReader rdr = null;
+                rdr = cmd.ExecuteReader();
+
+                if (rdr.Read())
+                {
+                    c.NoteID = (long)rdr["NoteID"];
+                }
+            }
+        }
+
+        public void UpdateNoteDB(ref Note a)
+        {
+            string updateString =
+                @"UPDATE Note
+                  SET NoteText = @NoteText WHERE NoteID = @NoteID";
+
+            using (SqlCommand cmd = new SqlCommand(updateString, OpenConnection))
+            {
+                cmd.Parameters.AddWithValue("@NoteText", a.NoteText);
+                cmd.Parameters.AddWithValue("@NoteID", a.NoteID);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void DeleteNoteDB(ref Note c)
+        {
+            string deleteString = @"DELETE FROM Note WHERE (NoteID = @NoteID)";
+
+            using (SqlCommand cmd = new SqlCommand(deleteString, OpenConnection))
+            {
+                cmd.Parameters.AddWithValue("@NoteID", c.NoteID);
 
                 cmd.ExecuteNonQuery();
             }

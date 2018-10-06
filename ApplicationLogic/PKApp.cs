@@ -12,62 +12,30 @@ namespace ApplicationLogic
     {
         public void TheApp()
         {
-            PKDBUtil PKUtil = new PKDBUtil();
-            //Person tempPerson = new Person("Oliver", "Monberg", "", "", null);
-
+            PKDBUtil util = new PKDBUtil();
+            
 
             City c2 = new City("Aarhus", "8200", "Denmark");
-            PKUtil.GetCityIDByCityNameAndPostalCodeAndCountry(ref c2);
+            util.GetCityIDByCityNameAndPostalCodeAndCountry(ref c2);
 
             Address a2 = new Address("Goeteborg Alle", "12", c2);
-            PKUtil.GetAddressIDByStreetNameAndStreetNumberAndCityID(ref a2);
+            util.GetAddressIDByStreetNameAndStreetNumberAndCityID(ref a2);
 
-            Person p1 = new Person("Leif", "Larsen", "Vietnam", "Male", a2);
-            PKUtil.GetPersonIDByFirstNameAndLastNameAndNationalityAndGenderAndAddressID(ref p1);
+            Person p2 = new Person("Oliver", "Monberg", "Danish", "Male", a2);
+            util.GetPersonIDByFirstNameAndLastNameAndNationalityAndGenderAndAddressID(ref p2);
 
+            Note n2 = new Note("Dette er en note.");
+            n2.PersonID = p2.PersonID;
 
-            City c1 = new City("Grenaa", "1234", "Denmark");
-            //PKUtil.AddCityDB(ref c1);
+            //util.AddNoteDB(ref n2);
 
-            PKUtil.GetCityIDByCityNameAndPostalCodeAndCountry(ref c1);
+            //util.GetNoteIDByNoteTextAndPersonID(ref n2);
+            //n2.NoteText = "Opdateret notetekst";
+            //util.UpdateNoteDB(ref n2);
 
-            Address a1 = new Address("Torskevej", "10", c1);
-            //PKUtil.AddAddressDB(ref a1);
-            PKUtil.GetAddressIDByStreetNameAndStreetNumberAndCityID(ref a1);
-
-            AlternativeAddress aa1 = new AlternativeAddress(p1, a1, "Sommerhus");
-            //PKUtil.AddAlternativeAddressDB(ref aa1);
-
-            PKUtil.GetAlternativeAddressIDByPersonAndAddressAndType(ref aa1);
-
-            City c3 = new City("Silkeborg", "4321", "Denmark");
-            //PKUtil.AddCityDB(ref c3);
-
-            PKUtil.GetCityIDByCityNameAndPostalCodeAndCountry(ref c3);
-
-            Address a3 = new Address("Filetvej", "20", c3);
-            //PKUtil.AddAddressDB(ref a3);
-
-            PKUtil.GetAddressIDByStreetNameAndStreetNumberAndCityID(ref a3);
-
-
-
-            aa1.AddressID = a3.AddressID;
-            PKUtil.UpdateAlternativeAddressDB(ref aa1);
-
-
-
-            PKUtil.DeleteAlternativeAddressDB(ref aa1);
-
-            //City c2 = new City("Aarhus", "8200", "Denmark");
-            //PKUtil.GetCityIDByCityNameAndPostalCodeAndCountry(ref c2);
-            //Address a2 = new Address("Goeteborg Alle", "12", c2);
-            //PKUtil.GetAddressIDByStreetNameAndStreetNumberAndCityID(ref a2);
-            //
-            //p1.AddressID = a2.AddressID;
-            //PKUtil.UpdatePersonDB(ref p1);
-
-            //Console.ReadKey();
+            n2.NoteText = "Opdateret notetekst";
+            util.GetNoteIDByNoteTextAndPersonID(ref n2);
+            util.DeleteNoteDB(ref n2);
         }
     }
 }
