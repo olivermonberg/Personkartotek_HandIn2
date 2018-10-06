@@ -5,6 +5,6 @@
 
 
 SELECT * FROM AlternativeAddress INNER JOIN Address ON Address.AddressID = AlternativeAddress.AddressID 
-INNER JOIN City ON City.CityID = Address.CityID Inner join Person on Person.PersonID = AlternativeAddress.PersonID 
+INNER JOIN City ON City.CityID = Address.CityID Inner join Person on Person.PersonID = AlternativeAddress.PersonID WHERE PersonID = 15
 --Inner join Person on Person.PersonID = AlternativeAddress.PersonID
 --INNER JOIN Address ON Address.AddressID = AlternativeAddress.AddressID --WHERE (Person.PersonID = 11)

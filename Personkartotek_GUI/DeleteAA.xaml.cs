@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -40,8 +41,9 @@ namespace Personkartotek_GUI
            con.Open();
            cmd.Connection = con;
            cmd.CommandText = "SELECT * FROM AlternativeAddress INNER JOIN Address ON Address.AddressID = " +
-                             "AlternativeAddress.AddressID INNER JOIN City ON City.CityID = Address.CityID Inner join Person on Person.PersonID = AlternativeAddress.PersonID";
-
+                             "AlternativeAddress.AddressID INNER JOIN City ON City.CityID = Address.CityID Inner join Person on Person.PersonID = AlternativeAddress.PersonID " +
+                             "WHERE (AlternativeAddress.PersonID = " + MainWindow.PersonID.ToString() + ")";
+           
            dr = cmd.ExecuteReader();
 
            string str = "";
@@ -74,7 +76,8 @@ namespace Personkartotek_GUI
            con.Close();
        }
 
-        public string FirstName, LastName, Nationality, Gender = "";
+        public static string FirstName, LastName, Nationality, Gender = "";
+        public static string StreetName, StreetNumber, CityName, PostalCode, Country, Type;
 
        private void AAList_SelectionChanged(object sender, SelectionChangedEventArgs e)
        {
@@ -83,17 +86,17 @@ namespace Personkartotek_GUI
                string[] strArray = AAList.SelectedItem.ToString().Split(';');
 
                
-               StreetNameBox.Text = strArray[0];
-               StreetNumberBox.Text = strArray[1];
-               CityNameBox.Text = strArray[2];
-               PostalCodeBox.Text = strArray[3];
-               CountryBox.Text = strArray[4];
-               TypeBox.Text = strArray[5];
+               StreetName = StreetNameBox.Text = strArray[0];
+               StreetNumber=StreetNumberBox.Text = strArray[1];
+               CityName=CityNameBox.Text = strArray[2];
+               PostalCode=PostalCodeBox.Text = strArray[3];
+               Country=CountryBox.Text = strArray[4];
+               Type=TypeBox.Text = strArray[5];
                FirstName = strArray[6];
                LastName = strArray[7];
                Nationality = strArray[8];
                Gender = strArray[9];
-            }
+           }
        }
 
        private void RefreshAADB_Click(object sender, RoutedEventArgs e)
@@ -115,20 +118,14 @@ namespace Personkartotek_GUI
             }
             else
             {
-                City c1 = new City(CityNameBox.Text, PostalCodeBox.Text, CountryBox.Text);
-                util.GetCityIDByCityNameAndPostalCodeAndCountry(ref c1);
-
-                Address a1 = new Address(StreetNameBox.Text, StreetNumberBox.Text, c1);
-                util.GetAddressIDByStreetNameAndStreetNumberAndCityID(ref a1);
-                
-                Person p1 = new Person(FirstName, LastName, Nationality,Gender, null);
-                util.GetPersonIDByFirstNameAndLastNameAndNationalityAndGenderAndAddressID(ref p1);
-
-                AlternativeAddress aa1 = new AlternativeAddress(p1,a1,TypeBox.Text);
-                util.DeleteAlternativeAddressDB(ref aa1);
-
-                
+                DeleteBttnPressed = true;
+                Close();
             }
         }
+        /*
+        void DataWindow_Closing(object sender, CancelEventArgs e)
+        {
+            DeleteBttnPressed = true;
+        }*/
     }
-}
+    }

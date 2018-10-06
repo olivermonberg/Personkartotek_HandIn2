@@ -378,8 +378,21 @@ namespace Personkartotek_GUI
             }
         }
 
+        public static long PersonID = 0;
+
         private void DeleteAlternativeAddressBttn_Click(object sender, RoutedEventArgs e)
         {
+            City c1 = new City(CityBox.Text, PostalCodeBox.Text, CountryBox.Text);
+            util.GetCityIDByCityNameAndPostalCodeAndCountry(ref c1);
+
+            Address a1 = new Address(StreetNameBox.Text, StreetNumberBox.Text, c1);
+            util.GetAddressIDByStreetNameAndStreetNumberAndCityID(ref a1);
+
+            Person p1 = new Person(FirstNameBox.Text, LastNameBox.Text, NationalityBox.Text, GenderBox.Text, a1);
+            util.GetPersonIDByFirstNameAndLastNameAndNationalityAndGenderAndAddressID(ref p1);
+
+            PersonID = p1.PersonID;
+
             Thread viewerThread = new Thread(delegate ()
             {
                 DeleteAA w1 = new DeleteAA();
@@ -395,6 +408,19 @@ namespace Personkartotek_GUI
             while (DeleteAA.DeleteBttnPressed == false)
             {
             }
+
+            
+
+
+            City c2 = new City(DeleteAA.CityName, DeleteAA.PostalCode, DeleteAA.Country);
+            util.GetCityIDByCityNameAndPostalCodeAndCountry(ref c2);
+            Address a2 = new Address(DeleteAA.StreetName, DeleteAA.StreetNumber, c2);
+            util.GetAddressIDByStreetNameAndStreetNumberAndCityID(ref a2);
+
+            AlternativeAddress aa1 = new AlternativeAddress(p1, a2, DeleteAA.Type);
+            util.GetAlternativeAddressIDByPersonAndAddressAndType(ref aa1);
+            util.DeleteAlternativeAddressDB(ref aa1);
+
         }
     }
 }
