@@ -14,5 +14,6 @@ namespace DomaineModel
         }
         public virtual long EmailID { get; set; }
         public virtual string EmailAddress { get; set; }
+        public virtual long PersonID { get; set; }
     }
 }

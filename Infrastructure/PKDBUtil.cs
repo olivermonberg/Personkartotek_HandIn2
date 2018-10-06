@@ -11,12 +11,9 @@ namespace Infrastructure
     public class PKDBUtil
     {
         private Person currentPerson;
-        /// <summary>
-        /// Constructor may be use to initialize the connection string and likely setup things 
-        /// </summary>
+
         public PKDBUtil()
         {
-            //currentPerson = new Person("", "", "", "", null);
         }
 
         private SqlConnection OpenConnection
@@ -415,6 +412,195 @@ namespace Infrastructure
             using (SqlCommand cmd = new SqlCommand(deleteString, OpenConnection))
             {
                 cmd.Parameters.AddWithValue("@NoteID", c.NoteID);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void AddEmailDB(ref Email c)
+        {
+            string insertStringParam1 = "SELECT COUNT(*) FROM[Email] WHERE (EmailAddress = @EmailAddress and PersonID = @PersonID)";
+
+            SqlCommand check_if_city_exists = new SqlCommand(insertStringParam1, OpenConnection);
+            check_if_city_exists.Parameters.AddWithValue("@EmailAddress", c.EmailAddress);
+            check_if_city_exists.Parameters.AddWithValue("@PersonID", c.PersonID);
+
+            int UserExist = (int)check_if_city_exists.ExecuteScalar();
+
+            if (UserExist > 0)
+            {
+                //Username exist
+            }
+            else
+            {
+                //Username doesn't exist.
+                string insertStringParam = @"INSERT INTO [Email] (EmailAddress, PersonID)
+                                                OUTPUT INSERTED.EmailID
+                                                VALUES (@EmailAddress, @PersonID)";
+
+                using (SqlCommand cmd = new SqlCommand(insertStringParam, OpenConnection))
+                {
+                    cmd.Parameters.AddWithValue("@EmailAddress", c.EmailAddress);
+                    cmd.Parameters.AddWithValue("@PersonID", c.PersonID);
+                    c.EmailID = (long)cmd.ExecuteScalar();
+                }
+            }
+        }
+
+        public void GetEmailIDByEmailAddressAndPersonID(ref Email c)
+        {
+            string sqlcmd = @"SELECT  TOP 1 * FROM Email WHERE (EmailAddress = @EmailAddress) AND (PersonID = @PersonID)";
+            using (var cmd = new SqlCommand(sqlcmd, OpenConnection))
+            {
+                cmd.Parameters.AddWithValue("@EmailAddress", c.EmailAddress);
+                cmd.Parameters.AddWithValue("@PersonID", c.PersonID);
+                SqlDataReader rdr = null;
+                rdr = cmd.ExecuteReader();
+
+                if (rdr.Read())
+                {
+                    c.EmailID = (long)rdr["EmailID"];
+                }
+            }
+        }
+
+        public void UpdateEmailDB(ref Email a)
+        {
+            string updateString =
+                @"UPDATE Email
+                  SET EmailAddress = @EmailAddress WHERE EmailID = @EmailID";
+
+            using (SqlCommand cmd = new SqlCommand(updateString, OpenConnection))
+            {
+                cmd.Parameters.AddWithValue("@EmailAddress", a.EmailAddress);
+                cmd.Parameters.AddWithValue("@EmailID", a.EmailID);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void DeleteEmailDB(ref Email c)
+        {
+            string deleteString = @"DELETE FROM Email WHERE (EmailID = @EmailID)";
+
+            using (SqlCommand cmd = new SqlCommand(deleteString, OpenConnection))
+            {
+                cmd.Parameters.AddWithValue("@EmailID", c.EmailID);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void AddPhoneCarrierDB(ref PhoneCarrier c)
+        {
+            string insertStringParam1 = "SELECT COUNT(*) FROM[PhoneCarrier] WHERE (CompanyName = @CompanyName)";
+
+            SqlCommand check_if_city_exists = new SqlCommand(insertStringParam1, OpenConnection);
+            check_if_city_exists.Parameters.AddWithValue("@CompanyName", c.CompanyName);
+
+            int UserExist = (int)check_if_city_exists.ExecuteScalar();
+
+            if (UserExist > 0)
+            {
+                //Username exist
+            }
+            else
+            {
+                //Username doesn't exist.
+                string insertStringParam = @"INSERT INTO [PhoneCarrier] (CompanyName)
+                                                OUTPUT INSERTED.PhoneCarrierID
+                                                VALUES (@CompanyName)";
+
+                using (SqlCommand cmd = new SqlCommand(insertStringParam, OpenConnection))
+                {
+                    cmd.Parameters.AddWithValue("@CompanyName", c.CompanyName);
+                    c.PhoneCarrierID = (long)cmd.ExecuteScalar();
+                }
+            }
+        }
+
+        public void GetPhoneCarrierIDByCompanyName(ref PhoneCarrier c)
+        {
+            string sqlcmd = @"SELECT  TOP 1 * FROM PhoneCarrier WHERE (CompanyName = @CompanyName)";
+            using (var cmd = new SqlCommand(sqlcmd, OpenConnection))
+            {
+                cmd.Parameters.AddWithValue("@CompanyName", c.CompanyName);
+                SqlDataReader rdr = null;
+                rdr = cmd.ExecuteReader();
+
+                if (rdr.Read())
+                {
+                    c.PhoneCarrierID = (long)rdr["PhoneCarrierID"];
+                }
+            }
+        }
+        
+        public void AddPhoneNumberDB(ref PhoneNumber a)
+        {
+            string insertStringParam1 = "SELECT COUNT(*) FROM[PhoneNumber] WHERE (Num = @Num)";
+
+            SqlCommand check_if_city_exists = new SqlCommand(insertStringParam1, OpenConnection);
+            check_if_city_exists.Parameters.AddWithValue("@Num", a.Num);
+
+            int UserExist = (int)check_if_city_exists.ExecuteScalar();
+
+            if (UserExist > 0)
+            {
+                //Username exist
+            }
+            else
+            {
+                string insertStringParam = @"INSERT INTO [PhoneNumber] (Num, PhoneCarrierID, PersonID)
+                                            OUTPUT INSERTED.PhoneNumberID
+                                            VALUES (@Num, @PhoneCarrierID, @PersonID)";
+
+                using (SqlCommand cmd = new SqlCommand(insertStringParam, OpenConnection))
+                {
+                    cmd.Parameters.AddWithValue("@Num", a.Num);
+                    cmd.Parameters.AddWithValue("@PhoneCarrierID", a.PhoneCarrierID);
+                    cmd.Parameters.AddWithValue("@PersonID", a.PersonID);
+                    a.PhoneNumberID = (long)cmd.ExecuteScalar();
+                }
+            }
+        }
+
+        public void GetPhoneNumberIDByNum(ref PhoneNumber c)
+        {
+            string sqlcmd = @"SELECT  TOP 1 * FROM PhoneNumber WHERE (Num = @Num)";
+            using (var cmd = new SqlCommand(sqlcmd, OpenConnection))
+            {
+                cmd.Parameters.AddWithValue("@Num", c.Num);
+                SqlDataReader rdr = null;
+                rdr = cmd.ExecuteReader();
+
+                if (rdr.Read())
+                {
+                    c.PhoneNumberID = (long)rdr["PhoneNumberID"];
+                }
+            }
+        }
+
+        public void UpdatePhoneNumberDB(ref PhoneNumber a)
+        {
+            string updateString =
+                @"UPDATE PhoneNumber
+                  SET Num = @Num, PhoneCarrierID = @PhoneCarrierID WHERE PhoneNumberID = @PhoneNumberID";
+
+            using (SqlCommand cmd = new SqlCommand(updateString, OpenConnection))
+            {
+                cmd.Parameters.AddWithValue("@Num", a.Num);
+                cmd.Parameters.AddWithValue("@PhoneCarrierID", a.PhoneCarrierID);
+                cmd.Parameters.AddWithValue("@PhoneNumberID", a.PhoneNumberID);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void DeletePhoneNumberDB(ref PhoneNumber c)
+        {
+            string deleteString = @"DELETE FROM PhoneNumber WHERE (PhoneNumberID = @PhoneNumberID)";
+
+            using (SqlCommand cmd = new SqlCommand(deleteString, OpenConnection))
+            {
+                cmd.Parameters.AddWithValue("@PhoneNumberID", c.PhoneNumberID);
 
                 cmd.ExecuteNonQuery();
             }
